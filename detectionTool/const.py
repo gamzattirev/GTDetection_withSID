@@ -1,0 +1,7 @@
+EVENT_LOGIN = 4624
+EVENT_LOGIN_FAIL = 4625
+EVENT_ST = 4769
+RESULT_SID_MISMATCH = "attack: SID mismatch"
+SID_LIST='sid.txt'
+NEWLINE='\n'
+ADMIN_LIST="./admin.csv"
