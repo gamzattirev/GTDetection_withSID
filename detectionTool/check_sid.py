@@ -17,10 +17,6 @@ with open(const.SID_LIST, 'r') as file:
 
 
 adminlist=[]
-with open(const.ADMIN_LIST, 'r') as file:
-    for row in file:
-        admin=row.replace(const.NEWLINE, "")
-        adminlist.append(admin)
 
 inputdir=sys.argv[1]
 files = glob.glob(inputdir + "/*.evtx")
@@ -32,6 +28,12 @@ for file in files:
     for record in parser.records_json():
         data = json.loads(record['data'])
         event_id=data['Event']['System']['EventID']
+        if event_id == const.EVENT_PRIV:
+            accountname = data['Event']['EventData']['SubjectUserName'].lower()
+            #print(accountname)
+            adminlist.append(accountname)
+            continue
+
         if  event_id== const.EVENT_LOGIN or event_id== const.EVENT_LOGIN_FAIL:
             sid=data['Event']['EventData']['TargetUserSid'].lower()
             accountname=data['Event']['EventData']['TargetUserName'].lower()
